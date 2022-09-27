@@ -1,0 +1,37 @@
+galaxy_info:
+  author: Laur Ivan
+  namespace: laurivan
+  role_name: arrs
+  description: Sonarr, Lidarr, Deluge and proxy via Docker
+  license: MIT
+
+  min_ansible_version: "2.4"
+  min_ansible_container_version: "2.4"
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+    - name: Alpine
+      version:
+        - all
+    - name: ArchLinux
+      versions:
+        - all
+
+  galaxy_tags: 
+    - sonarr
+    - lidarr
+    - deluge
+    - proxy
+    - media
+    - grabber
+    - docker
+
+dependencies: []

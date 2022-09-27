@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  # gather_facts: false
+  pre_tasks:
+    - name: "Include necessary variables"
+      ansible.builtin.include_vars:
+        file: "../../.env.yml"
+      
+  roles:
+    - role: laurivan.arrs
+

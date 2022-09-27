@@ -1,0 +1,23 @@
+---
+- name: Clean up
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Check if the docker-compose file exists.
+      ansible.builtin.stat:
+        path: "~/plausible/docker-compose.yml"
+      register: docker_compose_file
+
+    - name: Remove docker-compose.
+      community.docker.docker_compose:
+        project_src: ~/arrs/
+        build: false
+        state: absent
+      when: docker_compose_file.stat.exists
+      become: false
+      
+    - name: Remove the docker-compose file
+      ansible.builtin.file:
+        path: "~/arrs/docker-compose.yml"
+        state: absent
+      when: docker_compose_file.stat.exists

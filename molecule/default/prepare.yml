@@ -1,0 +1,35 @@
+---
+- name: Setup the test machine
+  hosts: instance-arrs
+  tasks:
+    - name: Check if /var/run/docker.sock already exists
+      ansible.builtin.stat:
+        path: "/var/run/docker.sock"
+      register: docker_sock_stat
+
+    - name: Create docker.sock
+      raw: touch /var/run/docker.sock
+      become: true
+      changed_when: false
+      when: not docker_sock_stat.stat.exists
+
+    - name: Move docker.sock from tmp
+      raw: mount --move /tmp/docker_mounted.sock /var/run/docker.sock
+      become: true
+      changed_when: false
+      when: not docker_sock_stat.stat.exists
+      
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+    - name: Install python requests
+      pip:
+        name: 
+          - requests
+          - docker
+          - docker-compose
+    - name: Install docker
+      vars:
+        docker_service_manage: false
+      include_role:
+        name: geerlingguy.docker
