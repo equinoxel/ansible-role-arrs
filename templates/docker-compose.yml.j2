@@ -1,0 +1,67 @@
+version: "3.3"
+services:
+{% if deluge_enabled %}
+  deluge:
+    image: "linuxserver/deluge:{{ deluge_image_version }}"
+    restart: always
+    env_file:
+      - {{ arrs_setup_path }}/env.deluge.conf
+    volumes:
+      - {{ deluge_config_volume }}:/config
+      - {{ torrent_downloads_volume }}:/downloads
+    ports:
+      - {{ deluge_admin_port }}:8112
+      - {{ deluge_host_port }}:6881
+      - {{ deluge_host_port }}:6881/udp
+    networks:
+      - arrs
+{% endif %}
+{% if sonarr_enabled %}
+  sonarr:
+    image: "lscr.io/linuxserver/sonarr:{{ sonarr_image_version }}"
+    restart: always
+    env_file:
+      - {{ arrs_setup_path }}/env.sonarr.conf
+    volumes:
+      - {{ sonarr_config_volume }}:/config
+      - {{ sonarr_series_volume }}:/tv
+      - {{ torrent_downloads_volume }}:/downloads
+    ports:
+      - {{ sonarr_host_port }}:8989
+    networks:
+      - arrs
+{% endif %}
+{% if lidarr_enabled %}
+  lidarr:
+    image: "lscr.io/linuxserver/lidarr:{{ lidarr_image_version }}"
+    restart: always
+    env_file:
+      - {{ arrs_setup_path }}/env.sonarr.conf
+    volumes:
+      - {{ lidarr_config_volume }}:/config
+      - {{ torrent_downloads_volume }}:/downloads
+    ports:
+      - {{ lidarr_host_port }}:8686
+    networks:
+      - arrs
+{% endif %}
+{% if jackett_enabled %}
+  jackett:
+    image: "lscr.io/linuxserver/jackett:{{ jackett_image_version }}"
+    restart: always
+    env_file:
+      - {{ arrs_setup_path }}/env.jackett.conf
+    volumes:
+      - {{ jackett_config_volume }}:/config
+      - {{ torrent_downloads_volume }}:/downloads
+{% for item in lidarr_music_volumes %}
+      - {{ item.path }}:/music/{{ item.alias }}
+{% endfor %}
+    ports:
+      - {{ jackett_host_port }}:9117
+    networks:
+      - arrs
+{% endif %}
+
+networks:
+  arrs: {}

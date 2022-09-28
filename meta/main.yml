@@ -2,7 +2,7 @@ galaxy_info:
   author: Laur Ivan
   namespace: laurivan
   role_name: arrs
-  description: Sonarr, Lidarr, Deluge and proxy via Docker
+  description: Sonarr, Lidarr, Deluge and Jackett via Docker
   license: MIT
 
   min_ansible_version: "2.4"
@@ -29,7 +29,7 @@ galaxy_info:
     - sonarr
     - lidarr
     - deluge
-    - proxy
+    - jackett
     - media
     - grabber
     - docker

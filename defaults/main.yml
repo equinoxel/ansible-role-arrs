@@ -1,2 +1,51 @@
 ---
 # defaults file for arrs
+
+# Common defaults
+#
+timezone: 'Europe/Brussels'
+torrent_downloads_volume: '/mnt/download'
+arrs_configuration_volume: '/mnt/config'
+arrs_setup_path: '~/arrs'
+arrs_uid:
+arrs_gid:
+
+deluge_enabled: true 
+sonarr_enabled: true 
+lidarr_enabled: true 
+jackett_enabled: true
+
+# Deluge torrent
+#
+deluge_image_version: 'latest'
+deluge_loglevel: 'warning'
+
+deluge_host_port: 6881
+deluge_admin_port: 8112
+
+deluge_config_volume: '{{ arrs_configuration_volume }}/deluge'
+
+# Sonarr
+#
+sonarr_image_version: 'latest'
+sonarr_host_port: 8989
+
+sonarr_config_volume: '{{ arrs_configuration_volume }}/sonarr'
+sonarr_series_volume: '/mnt/videos/Series'
+
+# Lidarr
+lidarr_image_version: 'latest'
+lidarr_host_port: 8686
+
+lidarr_config_volume: '{{ arrs_configuration_volume }}/lidarr'
+lidarr_music_upload_volume: '/mnt/music/Reference'
+lidarr_music_volumes: 
+  - {path: '/mnt/music/Sonos', alias: 'sonos' }
+  - {path: '/mnt/music/Audiophile', alias: 'audiophile' }
+  - {path: '/mnt/music/Raw', alias: 'raw' }
+
+# Jakett
+jackett_image_version: 'latest'
+jackett_auto_update: true
+jackett_host_port: 9117
+jackett_config_volume: '{{ arrs_configuration_volume }}/jackett'
