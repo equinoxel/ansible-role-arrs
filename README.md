@@ -1,38 +1,153 @@
-Role Name
-=========
+# laurivan.arrs
 
-A brief description of the role goes here.
+This role installs Sonarr, Lidarr, Jackett and Deluge in Docker for a perfect combo.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+All variables are listed below (see also `defaults/main.yml`).
 
-Dependencies
-------------
+### Common variables
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+You need to specify:
 
-Example Playbook
-----------------
+- The `timezone`
+- The location where torrents will be downloaded
+- The location where different configuration files are stored
+- The place where `docker-compose.yml` and the environment files are stored
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yml
+timezone: 'Europe/Brussels'
+torrent_downloads_volume: '/mnt/download'
+arrs_configuration_volume: '/mnt/config'
+arrs_setup_path: '~/arrs'
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+If you need to install the containers with a specific user/group ID, then define:
 
-License
--------
+```yml
+arrs_uid:
+arrs_gid:
+```
+The role allows oyu to specify which components will be installed:
 
-BSD
+```yml
+deluge_enabled: true 
+sonarr_enabled: true 
+lidarr_enabled: true 
+jackett_enabled: true
+```
 
-Author Information
-------------------
+### Deluge torrent
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+You can specify the image version and the log level:
+
+```yml
+deluge_image_version: 'latest'
+deluge_loglevel: 'warning'
+```
+
+Deluge works on ports 6881 and 8112. You can change these ports:
+
+```yml
+deluge_host_port: 6881
+deluge_admin_port: 8112
+```
+
+You can also overwrite the location where deluge's configuration is stored (e.g. if you already have deluge installed and you want to use the Ansible role):
+
+```yml
+deluge_config_volume: '{{ arrs_configuration_volume }}/deluge'
+```
+
+### Sonarr
+
+You can specify the image version and the port exposed:
+
+```yml
+sonarr_image_version: 'latest'
+sonarr_host_port: 8989
+```
+You can also overwrite the location where sonarr's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
+
+```yml
+sonarr_config_volume: '{{ arrs_configuration_volume }}/sonarr'
+```
+
+Sonarr needs a place to copy the downloaded series:
+
+```yml
+sonarr_series_volume: '/mnt/videos/Series'
+```
+
+**Notes**:
+
+- Depending on your settings, it will also rename your current series
+- You need write access to that directory, so Sonarr can actually copy the files
+
+# Lidarr
+
+You can specify the image version and the port exposed:
+
+```yml
+lidarr_image_version: 'latest'
+lidarr_host_port: 8686
+```
+You can also overwrite the location where lidarr's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
+
+```yml
+lidarr_config_volume: '{{ arrs_configuration_volume }}/lidarr'
+```
+Lidarr needs a place to copy the downloaded music:
+
+```yml
+lidarr_music_upload_volume: '/mnt/music/Reference'
+```
+
+You will need to add a reference to your music collection (so you don't download what you already have). The layout below allows for multiple collections:
+
+```yml
+lidarr_music_volumes: 
+  - {path: '/mnt/music/Sonos', alias: 'sonos' }
+  - {path: '/mnt/music/Audiophile', alias: 'audiophile' }
+  - {path: '/mnt/music/Raw', alias: 'raw' }
+```
+
+The `path` is the actual directory where the collection is located and the `alias` is the internal mapping name in Docker.
+
+# Jakett
+You can specify the image version, the port exposed and to autoupdate:
+
+```yml
+jackett_image_version: 'latest'
+jackett_auto_update: true
+jackett_host_port: 9117
+```
+You can also overwrite the location where jackett's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
+
+```yml
+jackett_config_volume: '{{ arrs_configuration_volume }}/jackett'
+```
+
+## Dependencies
+
+You need a machine with docker and docker-compose installed.
+
+## Example Playbook
+
+```yml
+- hosts: servers
+  roles:
+      - 'laurivan.arrs'
+```
+
+## License
+
+MIT
+
+##  Author Information
+
+This role was created in 2022 by [Laur Ivan](https://www.laurivan.com).
