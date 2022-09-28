@@ -2,7 +2,7 @@ version: "3.3"
 services:
 {% if deluge_enabled %}
   deluge:
-    image: "linuxserver/deluge:{{ deluge_image_version }}"
+    image: "lscr.io/linuxserver/deluge:{{ deluge_image_version }}"
     restart: always
     env_file:
       - {{ arrs_setup_path }}/env.deluge.conf
