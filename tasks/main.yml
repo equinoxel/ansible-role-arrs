@@ -9,6 +9,7 @@
     mode: "0750"
   with_items:
     - "{{ deluge_config_volume }}"
+    - "{{ radarr_config_volume }}"
     - "{{ sonarr_config_volume }}"
     - "{{ lidarr_config_volume }}"
     - "{{ jackett_config_volume }}"
