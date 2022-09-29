@@ -63,6 +63,31 @@ You can also overwrite the location where deluge's configuration is stored (e.g.
 deluge_config_volume: '{{ arrs_configuration_volume }}/deluge'
 ```
 
+### Radarr
+
+You can specify the image version and the port exposed:
+
+```yml
+radarr_image_version: 'latest'
+radarr_host_port: 7878
+```
+You can also overwrite the location where radarr's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
+
+```yml
+radarr_config_volume: '{{ arrs_configuration_volume }}/radarr'
+```
+
+Radarr needs a place to copy the downloaded series:
+
+```yml
+radarr_series_volume: '/mnt/videos/Movies'
+```
+
+**Notes**:
+
+- Depending on your settings, it will also rename your current series
+- You need write access to that directory, so Sonarr can actually copy the files
+
 ### Sonarr
 
 You can specify the image version and the port exposed:

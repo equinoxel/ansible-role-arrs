@@ -11,6 +11,7 @@ arrs_uid:
 arrs_gid:
 
 deluge_enabled: true 
+radarr_enabled: true 
 sonarr_enabled: true 
 lidarr_enabled: true 
 jackett_enabled: true
@@ -24,6 +25,14 @@ deluge_host_port: 6881
 deluge_admin_port: 8112
 
 deluge_config_volume: '{{ arrs_configuration_volume }}/deluge'
+
+# Radarr
+#
+radarr_image_version: 'latest'
+radarr_host_port: 7878
+
+radarr_config_volume: '{{ arrs_configuration_volume }}/radarr'
+radarr_series_volume: '/mnt/videos/Movies'
 
 # Sonarr
 #
