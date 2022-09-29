@@ -24,8 +24,11 @@ services:
       - {{ arrs_setup_path }}/env.radarr.conf
     volumes:
       - {{ radarr_config_volume }}:/config
-      - {{ radarr_series_volume }}:/movies
       - {{ torrent_downloads_volume }}:/downloads
+      - {{ radarr_upload_volume }}:/movies
+{% for item in radarr_library_volumes %}
+      - {{ item.path }}:/library/{{ item.alias }}
+{% endfor %}
     ports:
       - {{ radarr_host_port }}:7878
     networks:
@@ -39,8 +42,11 @@ services:
       - {{ arrs_setup_path }}/env.sonarr.conf
     volumes:
       - {{ sonarr_config_volume }}:/config
-      - {{ sonarr_series_volume }}:/tv
       - {{ torrent_downloads_volume }}:/downloads
+      - {{ sonarr_upload_volume }}:/tv
+{% for item in sonarr_library_volumes %}
+      - {{ item.path }}:/library/{{ item.alias }}
+{% endfor %}
     ports:
       - {{ sonarr_host_port }}:8989
     networks:
@@ -55,8 +61,9 @@ services:
     volumes:
       - {{ lidarr_config_volume }}:/config
       - {{ torrent_downloads_volume }}:/downloads
-{% for item in lidarr_music_volumes %}
-      - {{ item.path }}:/music/{{ item.alias }}
+      - {{ lidarr_upload_volume }}:/music
+{% for item in lidarr_library_volumes %}
+      - {{ item.path }}:/library/{{ item.alias }}
 {% endfor %}
     ports:
       - {{ lidarr_host_port }}:8686
