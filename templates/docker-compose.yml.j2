@@ -17,7 +17,7 @@ services:
       - arrs
 {% endif %}
 {% if radarr_enabled %}
-  sonarr:
+  radarr:
     image: "lscr.io/linuxserver/radarr:{{ radarr_image_version }}"
     restart: unless-stopped
     env_file:
