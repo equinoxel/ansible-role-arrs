@@ -5,10 +5,10 @@ services:
     image: "lscr.io/linuxserver/deluge:{{ deluge_image_version }}"
     restart: unless-stopped
     env_file:
-      - {{ arrs_setup_path }}/env.deluge.conf
+      - "{{ arrs_setup_path }}/env.deluge.conf"
     volumes:
-      - {{ deluge_config_volume }}:/config
-      - {{ torrent_downloads_volume }}:/downloads
+      - "{{ deluge_config_volume }}:/config"
+      - "{{ torrent_downloads_volume }}:/downloads"
     ports:
       - {{ deluge_admin_port }}:8112
       - {{ deluge_host_port }}:6881
@@ -21,13 +21,13 @@ services:
     image: "lscr.io/linuxserver/radarr:{{ radarr_image_version }}"
     restart: unless-stopped
     env_file:
-      - {{ arrs_setup_path }}/env.radarr.conf
+      - "{{ arrs_setup_path }}/env.radarr.conf"
     volumes:
-      - {{ radarr_config_volume }}:/config
-      - {{ torrent_downloads_volume }}:/downloads
-      - {{ radarr_upload_volume }}:/movies
+      - "{{ radarr_config_volume }}:/config"
+      - "{{ torrent_downloads_volume }}:/downloads"
+      - "{{ radarr_upload_volume }}:/movies"
 {% for item in radarr_library_volumes %}
-      - {{ item.path }}:/library/{{ item.alias }}
+      - "{{ item.path }}:/library/{{ item.alias }}"
 {% endfor %}
     ports:
       - {{ radarr_host_port }}:7878
@@ -39,13 +39,13 @@ services:
     image: "lscr.io/linuxserver/sonarr:{{ sonarr_image_version }}"
     restart: unless-stopped
     env_file:
-      - {{ arrs_setup_path }}/env.sonarr.conf
+      - "{{ arrs_setup_path }}/env.sonarr.conf"
     volumes:
-      - {{ sonarr_config_volume }}:/config
-      - {{ torrent_downloads_volume }}:/downloads
-      - {{ sonarr_upload_volume }}:/tv
+      - "{{ sonarr_config_volume }}:/config"
+      - "{{ torrent_downloads_volume }}:/downloads"
+      - "{{ sonarr_upload_volume }}:/tv"
 {% for item in sonarr_library_volumes %}
-      - {{ item.path }}:/library/{{ item.alias }}
+      - "{{ item.path }}:/library/{{ item.alias }}"
 {% endfor %}
     ports:
       - {{ sonarr_host_port }}:8989
@@ -57,13 +57,13 @@ services:
     image: "lscr.io/linuxserver/lidarr:{{ lidarr_image_version }}"
     restart: unless-stopped
     env_file:
-      - {{ arrs_setup_path }}/env.sonarr.conf
+      - "{{ arrs_setup_path }}/env.sonarr.conf"
     volumes:
-      - {{ lidarr_config_volume }}:/config
-      - {{ torrent_downloads_volume }}:/downloads
-      - {{ lidarr_upload_volume }}:/music
+      - "{{ lidarr_config_volume }}:/config"
+      - "{{ torrent_downloads_volume }}:/downloads"
+      - "{{ lidarr_upload_volume }}:/music"
 {% for item in lidarr_library_volumes %}
-      - {{ item.path }}:/library/{{ item.alias }}
+      - "{{ item.path }}:/library/{{ item.alias }}"
 {% endfor %}
     ports:
       - {{ lidarr_host_port }}:8686
@@ -75,7 +75,7 @@ services:
     image: "lscr.io/linuxserver/jackett:{{ jackett_image_version }}"
     restart: unless-stopped
     env_file:
-      - {{ arrs_setup_path }}/env.jackett.conf
+      - "{{ arrs_setup_path }}/env.jackett.conf"
     volumes:
       - {{ jackett_config_volume }}:/config
       - {{ torrent_downloads_volume }}:/downloads
