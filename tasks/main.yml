@@ -1,6 +1,6 @@
 ---
 # tasks file for arrs
-- name: Set up directories
+- name: Set up main directory
   ansible.builtin.file:
     state: directory
     path: "{{ item }}"
@@ -12,8 +12,8 @@
   tags:
     - configuration
   become: true
-- name: Set up directories
 
+- name: Set up config directories
   ansible.builtin.file:
     state: directory
     path: "{{ item }}"
@@ -26,6 +26,21 @@
     - "{{ sonarr_config_volume }}"
     - "{{ lidarr_config_volume }}"
     - "{{ jackett_config_volume }}"
+  tags:
+    - configuration
+  become: true
+
+- name: Set up upload directories
+  ansible.builtin.file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{% if arrs_uid %}{{ arrs_uid }}{% else %}{{ ansible_effective_user_id }}{%endif%}"
+    group: "{% if arrs_gid %}{{ arrs_gid }}{% else %}{{ ansible_effective_group_id }}{%endif%}"
+    mode: "0750"
+  with_items:
+    - "{{ radarr_upload_volume }}"
+    - "{{ sonarr_upload_volume }}"
+    - "{{ lidarr_upload_volume }}"
   tags:
     - configuration
   become: true
