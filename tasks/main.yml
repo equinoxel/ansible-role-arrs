@@ -26,6 +26,7 @@
   loop:
     - "docker-compose.yml"
     - "env.deluge.conf"
+    - "env.radarr.conf"
     - "env.sonarr.conf"
     - "env.lidarr.conf"
     - "env.jackett.conf"
