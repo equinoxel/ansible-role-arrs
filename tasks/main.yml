@@ -8,12 +8,24 @@
     group: "{{ ansible_effective_group_id }}"
     mode: "0750"
   with_items:
+    - "{{ arrs_setup_path }}"
+  tags:
+    - configuration
+  become: true
+- name: Set up directories
+
+  ansible.builtin.file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{% if arrs_uid %}{{ arrs_uid }}{% else %}{{ ansible_effective_user_id }}{%endif%}"
+    group: "{% if arrs_gid %}{{ arrs_gid }}{% else %}{{ ansible_effective_group_id }}{%endif%}"
+    mode: "0750"
+  with_items:
     - "{{ deluge_config_volume }}"
     - "{{ radarr_config_volume }}"
     - "{{ sonarr_config_volume }}"
     - "{{ lidarr_config_volume }}"
     - "{{ jackett_config_volume }}"
-    - "{{ arrs_setup_path }}"
   tags:
     - configuration
   become: true
