@@ -32,6 +32,7 @@ If you need to install the containers with a specific user/group ID, then define
 arrs_uid:
 arrs_gid:
 ```
+
 The role allows oyu to specify which components will be installed:
 
 ```yml
@@ -71,6 +72,7 @@ You can specify the image version and the port exposed:
 radarr_image_version: 'latest'
 radarr_host_port: 7878
 ```
+
 You can also overwrite the location where radarr's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
 
 ```yml
@@ -96,6 +98,7 @@ You can specify the image version and the port exposed:
 sonarr_image_version: 'latest'
 sonarr_host_port: 8989
 ```
+
 You can also overwrite the location where sonarr's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
 
 ```yml
@@ -113,7 +116,7 @@ sonarr_series_volume: '/mnt/videos/Series'
 - Depending on your settings, it will also rename your current series
 - You need write access to that directory, so Sonarr can actually copy the files
 
-# Lidarr
+### Lidarr
 
 You can specify the image version and the port exposed:
 
@@ -121,11 +124,13 @@ You can specify the image version and the port exposed:
 lidarr_image_version: 'latest'
 lidarr_host_port: 8686
 ```
+
 You can also overwrite the location where lidarr's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
 
 ```yml
 lidarr_config_volume: '{{ arrs_configuration_volume }}/lidarr'
 ```
+
 Lidarr needs a place to copy the downloaded music:
 
 ```yml
@@ -143,7 +148,8 @@ lidarr_music_volumes:
 
 The `path` is the actual directory where the collection is located and the `alias` is the internal mapping name in Docker.
 
-# Jakett
+### Jakett
+
 You can specify the image version, the port exposed and to autoupdate:
 
 ```yml
@@ -151,6 +157,7 @@ jackett_image_version: 'latest'
 jackett_auto_update: true
 jackett_host_port: 9117
 ```
+
 You can also overwrite the location where jackett's configuration is stored (e.g. if you already have it installed and you want to use the Ansible role):
 
 ```yml
@@ -173,6 +180,6 @@ You need a machine with docker and docker-compose installed.
 
 MIT
 
-##  Author Information
+## Author Information
 
 This role was created in 2022 by [Laur Ivan](https://www.laurivan.com).
