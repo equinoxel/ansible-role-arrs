@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Laur Ivan
   namespace: laurivan
@@ -25,7 +26,7 @@ galaxy_info:
       versions:
         - all
 
-  galaxy_tags: 
+  galaxy_tags:
     - sonarr
     - lidarr
     - deluge

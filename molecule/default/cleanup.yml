@@ -15,7 +15,7 @@
         state: absent
       when: docker_compose_file.stat.exists
       become: false
-      
+
     - name: Remove the docker-compose file
       ansible.builtin.file:
         path: "~/arrs/docker-compose.yml"

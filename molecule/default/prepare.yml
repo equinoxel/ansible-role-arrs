@@ -14,18 +14,19 @@
       when: not docker_sock_stat.stat.exists
 
     - name: Move docker.sock from tmp
-      ansible.builtin.raw: mount --move /tmp/docker_mounted.sock /var/run/docker.sock
+      ansible.builtin.raw: >
+        mount --move /tmp/docker_mounted.sock /var/run/docker.sock
       become: true
       changed_when: false
       when: not docker_sock_stat.stat.exists
-      
+
     - name: Update apt cache.
       ansible.builtin.apt: update_cache=yes cache_valid_time=600
       when: ansible_os_family == 'Debian'
 
     - name: Install python requests
       ansible.builtin.pip:
-        name: 
+        name:
           - requests
           - docker
           - docker-compose

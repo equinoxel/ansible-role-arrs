@@ -6,6 +6,6 @@
     - name: "Include necessary variables"
       ansible.builtin.include_vars:
         file: "../../.env.yml"
-      
+
   roles:
     - role: laurivan.arrs

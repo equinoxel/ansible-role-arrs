@@ -10,10 +10,10 @@ arrs_setup_path: '~/arrs'
 arrs_uid:
 arrs_gid:
 
-deluge_enabled: true 
-radarr_enabled: true 
-sonarr_enabled: true 
-lidarr_enabled: true 
+deluge_enabled: true
+radarr_enabled: true
+sonarr_enabled: true
+lidarr_enabled: true
 jackett_enabled: true
 
 # Deluge torrent
@@ -33,10 +33,10 @@ radarr_host_port: 7878
 
 radarr_config_volume: '{{ arrs_configuration_volume }}/radarr'
 radarr_upload_volume: '/mnt/videos/Movies'
-radarr_library_volumes: 
-  - {path: '/mnt/video/Gold', alias: 'gold' }
-  - {path: '/mnt/video/Current', alias: 'current' }
-  - {path: '/mnt/video/Temporary', alias: 'temporary' }
+radarr_library_volumes:
+  - {path: '/mnt/video/Gold', alias: 'gold'}
+  - {path: '/mnt/video/Current', alias: 'current'}
+  - {path: '/mnt/video/Temporary', alias: 'temporary'}
 
 # Sonarr
 #
@@ -45,10 +45,10 @@ sonarr_host_port: 8989
 
 sonarr_config_volume: '{{ arrs_configuration_volume }}/sonarr'
 sonarr_upload_volume: '/mnt/videos/Series'
-sonarr_library_volumes: 
-  - {path: '/mnt/tv/Series', alias: 'series' }
-  - {path: '/mnt/tv/Animation', alias: 'animation' }
-  - {path: '/mnt/tv/SciFi', alias: 'scifi' }
+sonarr_library_volumes:
+  - {path: '/mnt/tv/Series', alias: 'series'}
+  - {path: '/mnt/tv/Animation', alias: 'animation'}
+  - {path: '/mnt/tv/SciFi', alias: 'scifi'}
 
 # Lidarr
 lidarr_image_version: 'latest'
@@ -56,10 +56,10 @@ lidarr_host_port: 8686
 
 lidarr_config_volume: '{{ arrs_configuration_volume }}/lidarr'
 lidarr_upload_volume: '/mnt/music/Reference'
-lidarr_library_volumes: 
-  - {path: '/mnt/music/Sonos', alias: 'sonos' }
-  - {path: '/mnt/music/Audiophile', alias: 'audiophile' }
-  - {path: '/mnt/music/Raw', alias: 'raw' }
+lidarr_library_volumes:
+  - {path: '/mnt/music/Sonos', alias: 'sonos'}
+  - {path: '/mnt/music/Audiophile', alias: 'audiophile'}
+  - {path: '/mnt/music/Raw', alias: 'raw'}
 
 # Jakett
 jackett_image_version: 'latest'
